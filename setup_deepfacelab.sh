@@ -111,6 +111,25 @@ mkdir -p \
 
 echo "    Workspace created at: $WORKSPACE"
 
+# ── 5.1 Download pre-trained face models if missing ──────
+FACELIB_DIR="$DFL_BASE/DeepFaceLab_Linux/DeepFaceLab/facelib"
+mkdir -p "$FACELIB_DIR"
+
+if [ ! -f "$FACELIB_DIR/S3FD.npy" ]; then
+    echo "    Downloading S3FD.npy (Face detector model ~89MB)..."
+    curl -L --retry 3 "https://github.com/iperov/DeepFaceLab/raw/master/facelib/S3FD.npy" -o "$FACELIB_DIR/S3FD.npy"
+fi
+
+if [ ! -f "$FACELIB_DIR/2DFAN.npy" ]; then
+    echo "    Downloading 2DFAN.npy (Face landmarks model ~95MB)..."
+    curl -L --retry 3 "https://github.com/iperov/DeepFaceLab/raw/master/facelib/2DFAN.npy" -o "$FACELIB_DIR/2DFAN.npy"
+fi
+
+if [ ! -f "$FACELIB_DIR/FaceEnhancer.npy" ]; then
+    echo "    Downloading FaceEnhancer.npy (Face enhancer model ~66MB)..."
+    curl -L --retry 3 "https://github.com/iperov/DeepFaceLab/raw/master/facelib/FaceEnhancer.npy" -o "$FACELIB_DIR/FaceEnhancer.npy"
+fi
+
 # ── 6. Configure CUDA Library Paths & Verify GPU ─────────
 echo ""
 echo "[6/6] Verifying GPU access via TensorFlow..."

@@ -103,18 +103,15 @@ bash 5.2_data_dst_sort.sh
 
 ---
 
-## Step 8: Train the Model (Use tmux)
+## Step 8: Train the Model
 
 ```bash
-tmux new -s dfl
 source /workspace/dfl_env/bin/activate
 cd /workspace/DeepFace-VastAi/DeepFaceLab_Linux/scripts
 bash 6_train_SAEHD_no_preview.sh
 ```
 
 ### Shortcuts:
-* **Detach from tmux:** Press <kbd>Ctrl</kbd> + <kbd>B</kbd>, then <kbd>D</kbd>
-* **Re-attach to tmux:** `tmux attach -t dfl`
 * **Save & Exit training:** Press <kbd>Enter</kbd>
 * **Save without exiting:** Press <kbd>S</kbd>
 

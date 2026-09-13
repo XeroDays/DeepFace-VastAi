@@ -123,6 +123,22 @@ bash 6_train_SAEHD_no_preview.sh
 bash 7_merge_SAEHD.sh
 ```
 
+### Recommended Merge Options:
+* **Use interactive merger?** `n`
+* **Choose mode:** `1`
+* **Choose mask mode:** `4`
+* **Choose erode mask modifier:** `5`
+* **Choose blur mask modifier:** `15`
+* **Choose motion blur power:** `Enter` (0)
+* **Choose output face scale modifier:** `Enter` (0)
+* **Color transfer to predicted face:** `rct`
+* **Choose sharpen mode:** `Enter` (0)
+* **Choose super resolution power:** `0`
+* **Choose image degrade by denoise power:** `Enter` (0)
+* **Choose image degrade by bicubic rescale power:** `Enter` (0)
+* **Degrade color power of final image:** `Enter` (0)
+* **Number of workers?** `Enter`
+
 ---
 
 ## Step 10: Export Result to Video

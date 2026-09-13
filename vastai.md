@@ -109,7 +109,7 @@ bash 5.2_data_dst_sort.sh
 tmux new -s dfl
 source /workspace/dfl_env/bin/activate
 cd /workspace/DeepFace-VastAi/DeepFaceLab_Linux/scripts
-bash 6_train_SAEHD.sh
+bash 6_train_SAEHD_no_preview.sh
 ```
 
 ### Shortcuts:

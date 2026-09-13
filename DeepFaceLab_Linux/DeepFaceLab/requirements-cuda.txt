@@ -11,3 +11,4 @@ pyqt5==5.15.9
 tf2onnx==1.9.3
 Pillow
 psutil
+protobuf<=3.20.3

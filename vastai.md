@@ -133,16 +133,38 @@ bash 8_merged_to_mp4.sh
 
 ---
 
-## Step 11: Download Result to Your Local Machine
+## Step 11: Create Zip File of Workspace
 
-**Mac / Linux:**
+```bash
+bash 9_create_workspace_zip.sh
+```
+
+---
+
+## Step 12: Download Result or Workspace to Your Local Machine
+
+**Download Result Video:**
+
+Mac / Linux:
 ```bash
 scp -P <PORT> root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/result.mp4 ~/Desktop/result.mp4
 ```
 
-**Windows PowerShell:**
+Windows PowerShell:
 ```powershell
 scp -P <PORT> root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/result.mp4 "C:\Users\<Username>\Desktop\result.mp4"
+```
+
+**Download Workspace Archive:**
+
+Mac / Linux:
+```bash
+scp -P <PORT> root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace.zip ~/Desktop/workspace.zip
+```
+
+Windows PowerShell:
+```powershell
+scp -P <PORT> root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace.zip "C:\Users\<Username>\Desktop\workspace.zip"
 ```
 
 ---

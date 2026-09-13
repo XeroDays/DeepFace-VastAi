@@ -167,3 +167,9 @@ export LD_LIBRARY_PATH=$(python -c "import site, glob; print(':'.join(glob.glob(
 source /workspace/dfl_env/bin/activate
 cd /workspace/DeepFace-VastAi/DeepFaceLab_Linux/scripts
 ```
+
+**Kill hanging or zombie processes:**
+```bash
+pkill -9 -f python
+```
+

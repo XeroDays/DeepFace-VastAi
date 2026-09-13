@@ -146,21 +146,35 @@ CUDA_PATHS="/usr/local/cuda/lib64:/usr/local/cuda-11.8/lib64:/usr/local/cuda-11/
 
 export LD_LIBRARY_PATH="${VENV_CUDA_PATHS}:${CUDA_PATHS}:${LD_LIBRARY_PATH:-}"
 
-# Persist LD_LIBRARY_PATH into venv activate script
+# Persist LD_LIBRARY_PATH and thread limits into venv activate script
 if [ -f "$VENV_PATH/bin/activate" ]; then
     grep -q "DeepFaceLab CUDA paths" "$VENV_PATH/bin/activate" 2>/dev/null || cat >> "$VENV_PATH/bin/activate" << 'EOF'
 
-# DeepFaceLab CUDA paths
+# DeepFaceLab CUDA paths & thread limits
 _NV_LIBS=$(python -c "import site, glob; print(':'.join(glob.glob(site.getsitepackages()[0] + '/nvidia/*/lib')))" 2>/dev/null)
 export LD_LIBRARY_PATH="${_NV_LIBS}:/usr/local/cuda/lib64:/usr/local/cuda-11.8/lib64:/usr/local/cuda-11/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH:-}"
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+ulimit -u 65535 2>/dev/null || true
+ulimit -n 65535 2>/dev/null || true
 EOF
 fi
 
-# Persist LD_LIBRARY_PATH into /root/.bashrc
+# Persist into /root/.bashrc
 grep -q "DeepFaceLab CUDA paths" /root/.bashrc 2>/dev/null || cat >> /root/.bashrc << 'EOF'
 
-# DeepFaceLab CUDA paths
+# DeepFaceLab CUDA paths & thread limits
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-11.8/lib64:/usr/local/cuda-11/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH:-}"
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+ulimit -u 65535 2>/dev/null || true
+ulimit -n 65535 2>/dev/null || true
 EOF
 
 "$VENV_PATH/bin/python" -c "

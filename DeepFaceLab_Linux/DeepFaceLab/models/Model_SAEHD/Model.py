@@ -666,9 +666,10 @@ Examples: df, liae, df-d, df-ud, liae-ud, ...
 
             random_ct_samples_path=training_data_dst_path if ct_mode is not None and not self.pretrain else None
 
-            cpu_count = multiprocessing.cpu_count()
-            src_generators_count = cpu_count // 2
-            dst_generators_count = cpu_count // 2
+            cpu_count = min(multiprocessing.cpu_count(), 8)
+            cpu_count = max(2, cpu_count)
+            src_generators_count = max(1, cpu_count // 2)
+            dst_generators_count = max(1, cpu_count // 2)
             if ct_mode is not None:
                 src_generators_count = int(src_generators_count * 1.5)
 

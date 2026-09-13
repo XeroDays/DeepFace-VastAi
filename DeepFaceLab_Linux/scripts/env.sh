@@ -15,6 +15,17 @@ if [ -n "$NVIDIA_LIBS" ]; then
 fi
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-11.8/lib64:/usr/local/cuda-11/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH:-}"
 
+# Limit thread pool creation in worker subprocesses to prevent pthread_create error 11
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+
+# Raise process and file descriptor limits if container allows
+ulimit -u 65535 2>/dev/null || true
+ulimit -n 65535 2>/dev/null || true
+
 cd ..
 export DFL_WORKSPACE="workspace/"
 

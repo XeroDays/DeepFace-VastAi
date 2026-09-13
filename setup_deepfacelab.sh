@@ -73,14 +73,9 @@ echo "    Python: $($VENV_PATH/bin/python --version)"
 echo ""
 echo "[4/6] Installing Python packages..."
 
-# TensorFlow 2.10.1 (last version with native GPU support, works on CUDA 11.2+)
-pip install --quiet tensorflow==2.10.1
-
-# Protobuf must be <= 3.20.3 for TensorFlow 2.10 (fixes "Descriptors cannot be created directly")
-pip install --quiet "protobuf<=3.20.3"
-
-# Install compatible versions for Python 3.10
+# Install TensorFlow and core compatible dependencies
 pip install --quiet \
+    tensorflow==2.10.1 \
     numpy==1.23.5 \
     opencv-python==4.7.0.72 \
     ffmpeg-python==0.2.0 \
@@ -93,10 +88,13 @@ pip install --quiet \
     Pillow \
     psutil \
     numexpr \
-    tf2onnx==1.9.3
+    tf2onnx \
+    nvidia-cuda-runtime-cu11 \
+    nvidia-cudnn-cu11
 
-# Install CUDA 11 runtime libraries in venv (ensures libcudart.so.11.0 & libcudnn.so.8 are available)
-pip install --quiet nvidia-cuda-runtime-cu11 nvidia-cudnn-cu11
+# Strictly enforce TensorFlow 2.10 compatible protobuf and flatbuffers
+# (tf2onnx pulls modern protobuf 7+ and old flatbuffers 1.12, so we reinstall the compatible versions)
+pip install --quiet --force-reinstall "protobuf<3.20,>=3.9.2" "flatbuffers>=2.0"
 
 echo "    Python packages installed."
 

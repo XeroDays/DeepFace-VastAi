@@ -10,7 +10,11 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DFL_BASE="$SCRIPT_DIR"
-VENV_PATH="/root/dfl_env"
+if [ -d "/workspace" ]; then
+    VENV_PATH="/workspace/dfl_env"
+else
+    VENV_PATH="/root/dfl_env"
+fi
 WORKSPACE="$DFL_BASE/DeepFaceLab_Linux/workspace"
 REQUIREMENTS="$DFL_BASE/DeepFaceLab_Linux/DeepFaceLab/requirements-cuda.txt"
 
@@ -134,7 +138,7 @@ echo "  Python:     $VENV_PATH/bin/python"
 echo ""
 echo "  Next steps:"
 echo "  1. Activate the environment:"
-echo "       source /root/dfl_env/bin/activate"
+echo "       source $VENV_PATH/bin/activate"
 echo "  2. Go to the scripts directory:"
 echo "       cd $DFL_BASE/DeepFaceLab_Linux/scripts"
 echo "  3. Upload your source/destination videos:"

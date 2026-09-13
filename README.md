@@ -54,15 +54,16 @@ git push -u origin master
 SSH into the instance, then:
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git /root/DeepFaceLab
-cd /root/DeepFaceLab
+cd /workspace
+git clone https://github.com/XeroDays/DeepFace-VastAi.git /workspace/DeepFaceLab
+cd /workspace/DeepFaceLab
 bash setup_deepfacelab.sh
 ```
 
 This will:
 - Detect your GPU and CUDA version
 - Install system dependencies (FFmpeg, Git, etc.)
-- Create a Python venv at `/root/dfl_env`
+- Create a Python venv at `/workspace/dfl_env`
 - Install TensorFlow 2.10.1 + all required packages
 - Create the workspace folder structure
 - Verify GPU access via TensorFlow
@@ -70,13 +71,23 @@ This will:
 ---
 
 ## Step 4 — Upload Your Videos
-
-```powershell
+ 
+**Mac / Linux:**
+```bash
 # Source video (the face you want to use as the deepfake)
-scp -P 12345 "C:\path\to\source_face.mp4" root@123.456.789.10:/root/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
+scp -P <PORT> "/path/to/source_face.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
 
 # Destination video (the video you want to apply the deepfake to)
-scp -P 12345 "C:\path\to\destination_video.mp4" root@123.456.789.10:/root/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
+scp -P <PORT> "/path/to/destination_video.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
+```
+
+**Windows (PowerShell):**
+```powershell
+# Source video (the face you want to use as the deepfake)
+scp -P 12345 "C:\path\to\source_face.mp4" root@123.456.789.10:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
+
+# Destination video (the video you want to apply the deepfake to)
+scp -P 12345 "C:\path\to\destination_video.mp4" root@123.456.789.10:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
 ```
 
 ---
@@ -84,8 +95,8 @@ scp -P 12345 "C:\path\to\destination_video.mp4" root@123.456.789.10:/root/DeepFa
 ## Step 5 — Run DeepFaceLab Scripts
 
 ```bash
-source /root/dfl_env/bin/activate
-cd /root/DeepFaceLab/DeepFaceLab_Linux/scripts
+source /workspace/dfl_env/bin/activate
+cd /workspace/DeepFaceLab/DeepFaceLab_Linux/scripts
 ```
 
 Run steps in order:
@@ -107,8 +118,8 @@ Run steps in order:
 
 ```bash
 tmux new -s dfl
-source /root/dfl_env/bin/activate
-cd /root/DeepFaceLab/DeepFaceLab_Linux/scripts
+source /workspace/dfl_env/bin/activate
+cd /workspace/DeepFaceLab/DeepFaceLab_Linux/scripts
 bash 6_train_SAEHD.sh
 # Detach: Ctrl+B then D
 # Re-attach: tmux attach -t dfl
@@ -118,8 +129,14 @@ bash 6_train_SAEHD.sh
 
 ## Step 6 — Download Your Result
 
+**Mac / Linux:**
+```bash
+scp -P <PORT> root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 ~/Desktop/result.mp4
+```
+
+**Windows (PowerShell):**
 ```powershell
-scp -P 12345 root@123.456.789.10:/root/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 "D:\Projects\52. DeepFake\result.mp4"
+scp -P 12345 root@123.456.789.10:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 "D:\Projects\52. DeepFake\result.mp4"
 ```
 
 ---
@@ -128,7 +145,7 @@ scp -P 12345 root@123.456.789.10:/root/DeepFaceLab/DeepFaceLab_Linux/workspace/r
 
 **TensorFlow doesn't see the GPU:**
 ```bash
-source /root/dfl_env/bin/activate
+source /workspace/dfl_env/bin/activate
 python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 ```

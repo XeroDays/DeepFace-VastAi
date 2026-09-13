@@ -1,30 +1,40 @@
 # DeepFaceLab 2.0 – Full Vast.ai Workflow
 
+> [!NOTE]
+> All server commands assume you are already in the default `/workspace` directory on Vast.ai.
+
 ## Step 1: Clone repo & run setup (once per instance)
 
 ```bash
-git clone https://github.com/XeroDays/DeepFace-VastAi.git /root/DeepFaceLab
-cd /root/DeepFaceLab
+git clone https://github.com/XeroDays/DeepFace-VastAi.git
+cd DeepFaceLab
 bash setup_deepfacelab.sh
 ```
 
 ## Step 2: Activate Python environment
 
 ```bash
-source /root/dfl_env/bin/activate
-cd /root/DeepFaceLab/DeepFaceLab_Linux/scripts
+source ../dfl_env/bin/activate
+cd DeepFaceLab_Linux/scripts
 ```
 
-## Step 3: Upload videos (run from your LOCAL Windows machine)
+## Step 3: Upload videos (run from your LOCAL machine)
 
 | Video | Description | Server path |
 |---|---|---|
-| **Source** | The face you want to use as the deepfake | `/root/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4` |
-| **Destination** | The video you want to swap the face into | `/root/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4` |
+| **Source** | The face you want to use as the deepfake | `/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4` |
+| **Destination** | The video you want to swap the face into | `/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4` |
 
+**Mac / Linux (Terminal):**
+```bash
+scp -P <PORT> "/path/to/source_face.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
+scp -P <PORT> "/path/to/destination_video.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
+```
+
+**Windows (PowerShell):**
 ```powershell
-scp -P <PORT> "C:\path\to\source_face.mp4" root@<IP>:/root/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
-scp -P <PORT> "C:\path\to\destination_video.mp4" root@<IP>:/root/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
+scp -P <PORT> "C:\path\to\source_face.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
+scp -P <PORT> "C:\path\to\destination_video.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
 ```
 
 ## Step 4: Clear workspace (optional – only if starting fresh)
@@ -58,8 +68,7 @@ bash 5.2_data_dst_sort.sh
 
 ```bash
 tmux new -s dfl
-source /root/dfl_env/bin/activate
-cd /root/DeepFaceLab/DeepFaceLab_Linux/scripts
+source ../../dfl_env/bin/activate
 bash 6_train_SAEHD.sh
 ```
 
@@ -78,8 +87,14 @@ bash 7_merge_SAEHD.sh
 bash 8_merged_to_mp4.sh
 ```
 
-## Step 11: Download result (run from your LOCAL Windows machine)
+## Step 11: Download result (run from your LOCAL machine)
 
+**Mac / Linux (Terminal):**
+```bash
+scp -P <PORT> root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 ~/Desktop/result.mp4
+```
+
+**Windows (PowerShell):**
 ```powershell
-scp -P <PORT> root@<IP>:/root/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 "D:\Projects\52. DeepFake\result.mp4"
+scp -P <PORT> root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 "D:\Projects\52. DeepFake\result.mp4"
 ```

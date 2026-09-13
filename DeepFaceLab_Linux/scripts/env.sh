@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
-# No conda — use Python venv at /root/dfl_env
-source /root/dfl_env/bin/activate
+# Activate Python venv (checks /workspace/dfl_env first, then /root/dfl_env)
+if [ -f "/workspace/dfl_env/bin/activate" ]; then
+    source /workspace/dfl_env/bin/activate
+    export DFL_PYTHON="/workspace/dfl_env/bin/python"
+elif [ -f "/root/dfl_env/bin/activate" ]; then
+    source /root/dfl_env/bin/activate
+    export DFL_PYTHON="/root/dfl_env/bin/python"
+fi
 cd ..
-export DFL_PYTHON="/root/dfl_env/bin/python"
 export DFL_WORKSPACE="workspace/"
 
 if [ ! -d "$DFL_WORKSPACE" ]; then

@@ -11,7 +11,10 @@
 # ============================================================
 
 # Activate Python venv in all new SSH sessions
-if [ -f /root/dfl_env/bin/activate ]; then
+if [ -f /workspace/dfl_env/bin/activate ]; then
+    grep -q "source /workspace/dfl_env/bin/activate" /root/.bashrc 2>/dev/null || \
+        echo "source /workspace/dfl_env/bin/activate" >> /root/.bashrc
+elif [ -f /root/dfl_env/bin/activate ]; then
     grep -q "source /root/dfl_env/bin/activate" /root/.bashrc 2>/dev/null || \
         echo "source /root/dfl_env/bin/activate" >> /root/.bashrc
 fi
@@ -22,8 +25,13 @@ grep -q "DeepFaceLab environment" /root/.bashrc 2>/dev/null || cat >> /root/.bas
 # DeepFaceLab environment
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export CUDA_VISIBLE_DEVICES=0
-export DFL_ROOT="/root/DeepFaceLab/DeepFaceLab_Linux/"
-export DFL_SRC="/root/DeepFaceLab/DeepFaceLab_Linux/DeepFaceLab/"
+if [ -d "/workspace/DeepFaceLab" ]; then
+    export DFL_ROOT="/workspace/DeepFaceLab/DeepFaceLab_Linux/"
+    export DFL_SRC="/workspace/DeepFaceLab/DeepFaceLab_Linux/DeepFaceLab/"
+else
+    export DFL_ROOT="/root/DeepFaceLab/DeepFaceLab_Linux/"
+    export DFL_SRC="/root/DeepFaceLab/DeepFaceLab_Linux/DeepFaceLab/"
+fi
 EOF
 
 # Confirm GPU on startup

@@ -3,7 +3,7 @@
 ## Step 1: Clone repo & run setup (once per instance)
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git /root/DeepFaceLab
+git clone https://github.com/XeroDays/DeepFace-VastAi.git /root/DeepFaceLab
 cd /root/DeepFaceLab
 bash setup_deepfacelab.sh
 ```

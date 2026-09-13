@@ -90,7 +90,12 @@ pip install --quiet \
     numexpr \
     tf2onnx \
     nvidia-cuda-runtime-cu11 \
-    nvidia-cudnn-cu11
+    nvidia-cudnn-cu11==8.6.0.163 \
+    nvidia-cublas-cu11 \
+    nvidia-cufft-cu11 \
+    nvidia-curand-cu11 \
+    nvidia-cusolver-cu11 \
+    nvidia-cusparse-cu11
 
 # Strictly enforce TensorFlow 2.10 compatible protobuf and flatbuffers
 # (tf2onnx pulls modern protobuf 7+ and old flatbuffers 1.12, so we reinstall the compatible versions)

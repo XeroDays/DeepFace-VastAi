@@ -24,18 +24,7 @@ cd DeepFaceLab_Linux/scripts
 |---|---|---|
 | **Source** | The face you want to use as the deepfake | `/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_src.mp4` |
 | **Destination** | The video you want to swap the face into | `/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_dst.mp4` |
-
-**Mac / Linux (Terminal):**
-```bash
-scp -P <PORT> "/path/to/source_face.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_src.mp4
-scp -P <PORT> "/path/to/destination_video.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_dst.mp4
-```
-
-**Windows (PowerShell):**
-```powershell
-scp -P <PORT> "C:\path\to\source_face.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_src.mp4
-scp -P <PORT> "C:\path\to\destination_video.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_dst.mp4
-```
+ 
 
 ## Step 4: Clear workspace (optional – only if starting fresh)
 
@@ -51,6 +40,17 @@ bash 3_extract_image_from_data_dst.sh
 ```
 
 ## Step 6: Extract faces from frames
+
+
+```bash
+cd /workspace/DeepFace-VastAi/DeepFaceLab_Linux/DeepFaceLab/facelib
+curl -L "https://github.com/iperov/DeepFaceLab/raw/master/facelib/S3FD.npy" -o S3FD.npy
+curl -L "https://github.com/iperov/DeepFaceLab/raw/master/facelib/2DFAN.npy" -o 2DFAN.npy
+cd /workspace/DeepFace-VastAi/DeepFaceLab_Linux/scripts
+```
+
+
+
 
 ```bash
 bash 4_data_src_extract_faces_S3FD.sh

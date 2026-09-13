@@ -7,7 +7,7 @@
 
 ```bash
 git clone https://github.com/XeroDays/DeepFace-VastAi.git
-cd DeepFaceLab
+cd DeepFace-VastAi/
 bash setup_deepfacelab.sh
 ```
 
@@ -22,19 +22,19 @@ cd DeepFaceLab_Linux/scripts
 
 | Video | Description | Server path |
 |---|---|---|
-| **Source** | The face you want to use as the deepfake | `/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4` |
-| **Destination** | The video you want to swap the face into | `/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4` |
+| **Source** | The face you want to use as the deepfake | `/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_src.mp4` |
+| **Destination** | The video you want to swap the face into | `/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_dst.mp4` |
 
 **Mac / Linux (Terminal):**
 ```bash
-scp -P <PORT> "/path/to/source_face.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
-scp -P <PORT> "/path/to/destination_video.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
+scp -P <PORT> "/path/to/source_face.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_src.mp4
+scp -P <PORT> "/path/to/destination_video.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_dst.mp4
 ```
 
 **Windows (PowerShell):**
 ```powershell
-scp -P <PORT> "C:\path\to\source_face.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_src.mp4
-scp -P <PORT> "C:\path\to\destination_video.mp4" root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/data_dst.mp4
+scp -P <PORT> "C:\path\to\source_face.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_src.mp4
+scp -P <PORT> "C:\path\to\destination_video.mp4" root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/data_dst.mp4
 ```
 
 ## Step 4: Clear workspace (optional – only if starting fresh)
@@ -91,10 +91,10 @@ bash 8_merged_to_mp4.sh
 
 **Mac / Linux (Terminal):**
 ```bash
-scp -P <PORT> root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 ~/Desktop/result.mp4
+scp -P <PORT> root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/result.mp4 ~/Desktop/result.mp4
 ```
 
 **Windows (PowerShell):**
 ```powershell
-scp -P <PORT> root@<IP>:/workspace/DeepFaceLab/DeepFaceLab_Linux/workspace/result.mp4 "D:\Projects\52. DeepFake\result.mp4"
+scp -P <PORT> root@<IP>:/workspace/DeepFace-VastAi/DeepFaceLab_Linux/workspace/result.mp4 "D:\Projects\52. DeepFake\result.mp4"
 ```

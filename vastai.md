@@ -147,6 +147,11 @@ bash 7_merge_SAEHD.sh
 bash 8_merged_to_mp4.sh
 ```
 
+### Recommended Export Options:
+* **Input image format (extension):** `png` (or `jpg` if extracted as jpg)
+* **Use lossless codec?** `n`
+* **Bitrate of output file in MB/s:** `16` (or `Enter` for default)
+
 ---
 
 ## Step 11: Create Zip File of Workspace

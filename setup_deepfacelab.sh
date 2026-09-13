@@ -140,31 +140,19 @@ echo ""
 echo "[6/6] Verifying GPU access via TensorFlow..."
 echo "======================================================"
 
-# Build comprehensive LD_LIBRARY_PATH
+# Build comprehensive LD_LIBRARY_PATH using python glob
+VENV_CUDA_PATHS=$("$VENV_PATH/bin/python" -c "import site, glob; print(':'.join(glob.glob(site.getsitepackages()[0] + '/nvidia/*/lib')))" 2>/dev/null)
 CUDA_PATHS="/usr/local/cuda/lib64:/usr/local/cuda-11.8/lib64:/usr/local/cuda-11/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64"
-NVIDIA_VENV_PATH="$VENV_PATH/lib/python3.10/site-packages/nvidia"
-VENV_CUDA_PATHS=""
-if [ -d "$NVIDIA_VENV_PATH" ]; then
-    for p in "$NVIDIA_VENV_PATH"/*/lib; do
-        if [ -d "$p" ]; then
-            VENV_CUDA_PATHS="$p:$VENV_CUDA_PATHS"
-        fi
-    done
-fi
 
-export LD_LIBRARY_PATH="${VENV_CUDA_PATHS}${CUDA_PATHS}:${LD_LIBRARY_PATH:-}"
+export LD_LIBRARY_PATH="${VENV_CUDA_PATHS}:${CUDA_PATHS}:${LD_LIBRARY_PATH:-}"
 
 # Persist LD_LIBRARY_PATH into venv activate script
 if [ -f "$VENV_PATH/bin/activate" ]; then
     grep -q "DeepFaceLab CUDA paths" "$VENV_PATH/bin/activate" 2>/dev/null || cat >> "$VENV_PATH/bin/activate" << 'EOF'
 
 # DeepFaceLab CUDA paths
-export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-11.8/lib64:/usr/local/cuda-11/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH:-}"
-if [ -d "$VIRTUAL_ENV/lib/python3.10/site-packages/nvidia" ]; then
-    for _d in "$VIRTUAL_ENV/lib/python3.10/site-packages/nvidia"/*/lib; do
-        [ -d "$_d" ] && export LD_LIBRARY_PATH="$_d:$LD_LIBRARY_PATH"
-    done
-fi
+_NV_LIBS=$(python -c "import site, glob; print(':'.join(glob.glob(site.getsitepackages()[0] + '/nvidia/*/lib')))" 2>/dev/null)
+export LD_LIBRARY_PATH="${_NV_LIBS}:/usr/local/cuda/lib64:/usr/local/cuda-11.8/lib64:/usr/local/cuda-11/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH:-}"
 EOF
 fi
 

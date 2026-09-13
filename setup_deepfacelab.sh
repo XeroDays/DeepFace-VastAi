@@ -69,15 +69,10 @@ echo "    Python: $($VENV_PATH/bin/python --version)"
 echo ""
 echo "[4/6] Installing Python packages..."
 
-# TensorFlow 2.10.1 (last version with built-in GPU support, works on CUDA 11.2+)
+# TensorFlow 2.10.1 (last version with native GPU support, works on CUDA 11.2+)
 pip install --quiet tensorflow==2.10.1
 
-# Install remaining deps from requirements-cuda.txt, excluding old tensorflow-gpu pin
-if [ -f "$REQUIREMENTS" ]; then
-    grep -v "^tensorflow-gpu" "$REQUIREMENTS" | pip install --quiet -r /dev/stdin
-fi
-
-# Install compatible versions for packages that may conflict with old pins
+# Install compatible versions for Python 3.10
 pip install --quiet \
     numpy==1.23.5 \
     opencv-python==4.7.0.72 \

@@ -28,6 +28,8 @@ cd DeepFace-VastAi/
 bash setup_deepfacelab.sh
 ```
 
+The setup script auto-installs Python 3.10 if needed (Ubuntu 24.04 ships 3.12) and shows progress during pip installs.
+
 ---
 
 ## Step 2: Activate Python Environment & Navigate to Scripts
